@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Users, Mail, BarChart3, LogOut, Plus, Settings } from "lucide-react";
-
+import { Users, BarChart3, LogOut, Plus, Settings } from "lucide-react";
 const API = "https://mailbot-production-e637.up.railway.app";
 
 export default function App() {
@@ -10,10 +9,6 @@ const [token, setToken] = useState("");
 
 const [loginEmail, setLoginEmail] = useState("");
 const [loginPassword, setLoginPassword] = useState("");
-
-const [signupName, setSignupName] = useState("");
-const [signupEmail, setSignupEmail] = useState("");
-const [signupPassword, setSignupPassword] = useState("");
 
 const [error, setError] = useState("");
 const [success, setSuccess] = useState("");
@@ -101,8 +96,6 @@ setError("Connection error!");
 setLoading(false);
 };
 
-const signup = async () => {
-
 setError("");
 setLoading(true);
 
@@ -155,8 +148,6 @@ setStats(null);
 setCustomers([]);
 
 };
-
-const addCustomer = async () => {
 
 setLoading(true);
 setError("");
