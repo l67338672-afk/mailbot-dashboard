@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Users, BarChart3, LogOut, Plus, Settings } from "lucide-react";
+
 const API = "https://mailbot-production-e637.up.railway.app";
 
 export default function App() {
@@ -9,6 +10,10 @@ const [token, setToken] = useState("");
 
 const [loginEmail, setLoginEmail] = useState("");
 const [loginPassword, setLoginPassword] = useState("");
+
+const [signupName, setSignupName] = useState("");
+const [signupEmail, setSignupEmail] = useState("");
+const [signupPassword, setSignupPassword] = useState("");
 
 const [error, setError] = useState("");
 const [success, setSuccess] = useState("");
@@ -96,6 +101,8 @@ setError("Connection error!");
 setLoading(false);
 };
 
+const signup = async () => {
+
 setError("");
 setLoading(true);
 
@@ -148,6 +155,8 @@ setStats(null);
 setCustomers([]);
 
 };
+
+const addCustomer = async () => {
 
 setLoading(true);
 setError("");
@@ -235,10 +244,9 @@ onChange={e => setLoginPassword(e.target.value)}
 onClick={login}
 disabled={loading}
 className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold"
-
 >
-
-{loading ? "Logging in..." : "Login"} </button>
+{loading ? "Logging in..." : "Login"}
+</button>
 
 <p className="text-center text-gray-400 mt-4 text-sm">
 Don't have an account?
@@ -275,34 +283,30 @@ return (
 <button
 onClick={() => setActiveTab("dashboard")}
 className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
-
 >
-
-<BarChart3 size={18} /> Dashboard </button>
+<BarChart3 size={18} /> Dashboard
+</button>
 
 <button
 onClick={() => setActiveTab("customers")}
 className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
-
 >
-
-<Users size={18} /> Customers </button>
+<Users size={18} /> Customers
+</button>
 
 <button
 onClick={() => setActiveTab("add")}
 className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
-
 >
-
-<Plus size={18} /> Add Customer </button>
+<Plus size={18} /> Add Customer
+</button>
 
 <button
 onClick={() => setActiveTab("settings")}
 className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
-
 >
-
-<Settings size={18} /> Settings </button>
+<Settings size={18} /> Settings
+</button>
 
 </nav>
 
