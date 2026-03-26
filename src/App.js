@@ -28,7 +28,9 @@ const [phone, setPhone] = useState("");
 const [activeTab, setActiveTab] = useState("dashboard");
 const [loading, setLoading] = useState(false);
 
+
 useEffect(() => {
+
 const saved = localStorage.getItem("mailbot_token");
 
 if (saved) {
@@ -36,9 +38,12 @@ setToken(saved);
 setPage("dashboard");
 loadData(saved);
 }
+
 }, []);
 
+
 const loadData = async (t) => {
+
 try {
 
 const statsRes = await fetch(API + "/dashboard", {
@@ -56,9 +61,13 @@ setStats(statsData);
 setCustomers(customersData);
 
 } catch (e) {
+
 console.log(e);
+
 }
+
 };
+
 
 const login = async () => {
 
@@ -89,18 +98,20 @@ loadData(data.access_token);
 
 } else {
 
-setError("Wrong email or password!");
+setError("Wrong email or password");
 
 }
 
-} catch (e) {
+} catch {
 
-setError("Connection error!");
+setError("Connection error");
 
 }
 
 setLoading(false);
+
 };
+
 
 const signup = async () => {
 
@@ -126,24 +137,28 @@ if (data.id) {
 setSuccess("Account created! Please login.");
 
 setTimeout(() => {
+
 setPage("login");
 setSuccess("");
+
 }, 2000);
 
 } else {
 
-setError(data.detail || "Signup failed!");
+setError(data.detail || "Signup failed");
 
 }
 
-} catch (e) {
+} catch {
 
-setError("Connection error!");
+setError("Connection error");
 
 }
 
 setLoading(false);
+
 };
+
 
 const logout = () => {
 
@@ -156,6 +171,7 @@ setStats(null);
 setCustomers([]);
 
 };
+
 
 const addCustomer = async () => {
 
@@ -190,43 +206,37 @@ setPhone("");
 
 loadData(token);
 
-setTimeout(() => setSuccess(""), 3000);
-
 } else {
 
-setError(data.detail || "Failed to add customer!");
+setError(data.detail || "Failed to add customer");
 
 }
 
-} catch (e) {
+} catch {
 
-setError("Failed to add customer!");
+setError("Failed to add customer");
 
 }
 
 setLoading(false);
+
 };
+
 
 if (page === "login") return (
 
 <div className="min-h-screen bg-gray-950 flex items-center justify-center">
 
-<div className="bg-gray-900 p-8 rounded-2xl w-full max-w-md shadow-2xl border border-gray-800">
+<div className="bg-gray-900 p-8 rounded-2xl w-full max-w-md border border-gray-800">
 
-<div className="text-center mb-8">
-<div className="text-4xl mb-2">🤖</div>
-<h1 className="text-3xl font-bold text-white">MailBot</h1>
-<p className="text-gray-400 mt-1">AI Email Automation</p>
-</div>
+<h1 className="text-3xl text-white font-bold mb-6 text-center">
+MailBot
+</h1>
 
-{error && (
-<div className="bg-red-900 text-red-200 p-3 rounded-lg mb-4 text-sm">
-{error}
-</div>
-)}
+{error && <p className="text-red-400 mb-4">{error}</p>}
 
 <input
-className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 border border-gray-700"
+className="w-full p-3 bg-gray-800 text-white mb-3 rounded"
 placeholder="Email"
 value={loginEmail}
 onChange={e => setLoginEmail(e.target.value)}
@@ -234,7 +244,7 @@ onChange={e => setLoginEmail(e.target.value)}
 
 <input
 type="password"
-className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 border border-gray-700"
+className="w-full p-3 bg-gray-800 text-white mb-4 rounded"
 placeholder="Password"
 value={loginPassword}
 onChange={e => setLoginPassword(e.target.value)}
@@ -242,62 +252,55 @@ onChange={e => setLoginPassword(e.target.value)}
 
 <button
 onClick={login}
-disabled={loading}
-className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold"
+className="w-full bg-green-500 p-3 rounded text-white"
 >
-{loading ? "Logging in..." : "Login"}
+Login
 </button>
 
-<p className="text-center text-gray-400 mt-4 text-sm">
+<p className="text-gray-400 mt-4 text-center">
+
 Don't have an account?
+
 <span
-onClick={() => {
-setPage("signup");
-setError("");
-}}
-className="text-green-400 cursor-pointer hover:underline ml-1"
+className="text-green-400 ml-1 cursor-pointer"
+onClick={() => setPage("signup")}
 >
+
 Sign up
+
 </span>
+
 </p>
 
 </div>
+
 </div>
+
 );
+
 
 if (page === "signup") return (
 
 <div className="min-h-screen bg-gray-950 flex items-center justify-center">
 
-<div className="bg-gray-900 p-8 rounded-2xl w-full max-w-md shadow-2xl border border-gray-800">
+<div className="bg-gray-900 p-8 rounded-2xl w-full max-w-md border border-gray-800">
 
-<div className="text-center mb-8">
-<div className="text-4xl mb-2">🤖</div>
-<h1 className="text-3xl font-bold text-white">Create Account</h1>
-<p className="text-gray-400 mt-1">Join MailBot</p>
-</div>
+<h1 className="text-3xl text-white font-bold mb-6 text-center">
+Create Account
+</h1>
 
-{error && (
-<div className="bg-red-900 text-red-200 p-3 rounded-lg mb-4 text-sm">
-{error}
-</div>
-)}
-
-{success && (
-<div className="bg-green-900 text-green-200 p-3 rounded-lg mb-4 text-sm">
-{success}
-</div>
-)}
+{error && <p className="text-red-400 mb-4">{error}</p>}
+{success && <p className="text-green-400 mb-4">{success}</p>}
 
 <input
-className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 border border-gray-700"
+className="w-full p-3 bg-gray-800 text-white mb-3 rounded"
 placeholder="Name"
 value={signupName}
 onChange={e => setSignupName(e.target.value)}
 />
 
 <input
-className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 border border-gray-700"
+className="w-full p-3 bg-gray-800 text-white mb-3 rounded"
 placeholder="Email"
 value={signupEmail}
 onChange={e => setSignupEmail(e.target.value)}
@@ -305,7 +308,7 @@ onChange={e => setSignupEmail(e.target.value)}
 
 <input
 type="password"
-className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 border border-gray-700"
+className="w-full p-3 bg-gray-800 text-white mb-4 rounded"
 placeholder="Password"
 value={signupPassword}
 onChange={e => setSignupPassword(e.target.value)}
@@ -313,115 +316,186 @@ onChange={e => setSignupPassword(e.target.value)}
 
 <button
 onClick={signup}
-disabled={loading}
-className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold"
+className="w-full bg-green-500 p-3 rounded text-white"
 >
-{loading ? "Creating..." : "Create Account"}
+Create Account
 </button>
 
-<p className="text-center text-gray-400 mt-4 text-sm">
+<p className="text-gray-400 mt-4 text-center">
+
 Already have an account?
+
 <span
-onClick={() => {
-setPage("login");
-setError("");
-}}
-className="text-green-400 cursor-pointer hover:underline ml-1"
+className="text-green-400 ml-1 cursor-pointer"
+onClick={() => setPage("login")}
 >
+
 Login
+
 </span>
+
 </p>
 
 </div>
+
 </div>
+
 );
+
 
 return (
 
 <div className="min-h-screen bg-gray-950 flex">
 
+
 <div className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
 
 <div className="p-6 border-b border-gray-800">
-<h1 className="text-white font-bold text-lg">MailBot</h1>
+
+<h1 className="text-white font-bold text-lg">
+MailBot
+</h1>
+
 <p className="text-green-400 text-xs">
 {stats?.business_name}
 </p>
+
 </div>
+
 
 <nav className="flex-1 p-4">
 
-<button
-onClick={() => setActiveTab("dashboard")}
-className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
->
-<BarChart3 size={18} /> Dashboard
+<button onClick={() => setActiveTab("dashboard")} className="block text-gray-300 mb-3">
+Dashboard
 </button>
 
-<button
-onClick={() => setActiveTab("customers")}
-className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
->
-<Users size={18} /> Customers
+<button onClick={() => setActiveTab("customers")} className="block text-gray-300 mb-3">
+Customers
 </button>
 
-<button
-onClick={() => setActiveTab("add")}
-className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
->
-<Plus size={18} /> Add Customer
+<button onClick={() => setActiveTab("add")} className="block text-gray-300 mb-3">
+Add Customer
 </button>
 
-<button
-onClick={() => setActiveTab("settings")}
-className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800"
->
-<Settings size={18} /> Settings
+<button onClick={() => setActiveTab("settings")} className="block text-gray-300 mb-3">
+Settings
 </button>
 
 </nav>
 
-<div className="p-4 border-t border-gray-800">
+
 <button
 onClick={logout}
-className="w-full flex items-center gap-3 p-3 rounded-lg text-red-400 hover:bg-gray-800"
+className="p-4 text-red-400 border-t border-gray-800"
 >
-<LogOut size={18} /> Logout
+Logout
 </button>
-</div>
 
 </div>
+
 
 <div className="flex-1 p-8">
 
-<h2 className="text-2xl font-bold text-white mb-6">
+
+{activeTab === "dashboard" && (
+
+<div>
+
+<h2 className="text-2xl text-white mb-6">
 Dashboard
 </h2>
 
-<div className="grid grid-cols-3 gap-6">
-
-<div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-<p className="text-gray-400 text-sm">Emails Sent</p>
-<p className="text-3xl font-bold text-white">
-{stats?.emails_sent || 0}
+<p className="text-gray-400">
+Emails sent: {stats?.emails_sent || 0}
 </p>
-</div>
 
-<div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-<p className="text-gray-400 text-sm">Customers</p>
-<p className="text-3xl font-bold text-white">
-{customers.length}
+<p className="text-gray-400">
+Customers: {customers.length}
 </p>
+
 </div>
 
-<div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-<p className="text-gray-400 text-sm">Plan</p>
-<p className="text-3xl font-bold text-white capitalize">
-{stats?.plan}
+)}
+
+
+{activeTab === "customers" && (
+
+<div>
+
+<h2 className="text-2xl text-white mb-6">
+Customers
+</h2>
+
+{customers.map((c,i)=>(
+<p key={i} className="text-gray-300">
+{c.name} - {c.email}
 </p>
-</div>
+))}
 
 </div>
+
+)}
+
+
+{activeTab === "add" && (
+
+<div>
+
+<h2 className="text-2xl text-white mb-6">
+Add Customer
+</h2>
+
+<input
+className="block p-3 bg-gray-800 text-white mb-3"
+placeholder="Name"
+value={name}
+onChange={e=>setName(e.target.value)}
+/>
+
+<input
+className="block p-3 bg-gray-800 text-white mb-3"
+placeholder="Email"
+value={email}
+onChange={e=>setEmail(e.target.value)}
+/>
+
+<input
+className="block p-3 bg-gray-800 text-white mb-3"
+placeholder="Phone"
+value={phone}
+onChange={e=>setPhone(e.target.value)}
+/>
+
+<button
+onClick={addCustomer}
+className="bg-green-500 p-3 text-white"
+>
+
+Add Customer
+
+</button>
+
+</div>
+
+)}
+
+
+{activeTab === "settings" && (
+
+<div>
+
+<h2 className="text-2xl text-white">
+Settings
+</h2>
+
+<p className="text-gray-400 mt-3">
+Settings page coming soon
+</p>
+
+</div>
+
+)}
+
 
 </div>
 
