@@ -30,6 +30,7 @@ const [loading, setLoading] = useState(false);
 
 useEffect(() => {
 const saved = localStorage.getItem("mailbot_token");
+
 if (saved) {
 setToken(saved);
 setPage("dashboard");
@@ -219,7 +220,6 @@ if (page === "login") return (
 </div>
 
 {error && (
-
 <div className="bg-red-900 text-red-200 p-3 rounded-lg mb-4 text-sm">
 {error}
 </div>
@@ -258,6 +258,77 @@ setError("");
 className="text-green-400 cursor-pointer hover:underline ml-1"
 >
 Sign up
+</span>
+</p>
+
+</div>
+</div>
+);
+
+if (page === "signup") return (
+
+<div className="min-h-screen bg-gray-950 flex items-center justify-center">
+
+<div className="bg-gray-900 p-8 rounded-2xl w-full max-w-md shadow-2xl border border-gray-800">
+
+<div className="text-center mb-8">
+<div className="text-4xl mb-2">🤖</div>
+<h1 className="text-3xl font-bold text-white">Create Account</h1>
+<p className="text-gray-400 mt-1">Join MailBot</p>
+</div>
+
+{error && (
+<div className="bg-red-900 text-red-200 p-3 rounded-lg mb-4 text-sm">
+{error}
+</div>
+)}
+
+{success && (
+<div className="bg-green-900 text-green-200 p-3 rounded-lg mb-4 text-sm">
+{success}
+</div>
+)}
+
+<input
+className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 border border-gray-700"
+placeholder="Name"
+value={signupName}
+onChange={e => setSignupName(e.target.value)}
+/>
+
+<input
+className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 border border-gray-700"
+placeholder="Email"
+value={signupEmail}
+onChange={e => setSignupEmail(e.target.value)}
+/>
+
+<input
+type="password"
+className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 border border-gray-700"
+placeholder="Password"
+value={signupPassword}
+onChange={e => setSignupPassword(e.target.value)}
+/>
+
+<button
+onClick={signup}
+disabled={loading}
+className="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold"
+>
+{loading ? "Creating..." : "Create Account"}
+</button>
+
+<p className="text-center text-gray-400 mt-4 text-sm">
+Already have an account?
+<span
+onClick={() => {
+setPage("login");
+setError("");
+}}
+className="text-green-400 cursor-pointer hover:underline ml-1"
+>
+Login
 </span>
 </p>
 
@@ -323,10 +394,6 @@ className="w-full flex items-center gap-3 p-3 rounded-lg text-red-400 hover:bg-g
 
 <div className="flex-1 p-8">
 
-{activeTab === "dashboard" && (
-
-<div>
-
 <h2 className="text-2xl font-bold text-white mb-6">
 Dashboard
 </h2>
@@ -355,9 +422,6 @@ Dashboard
 </div>
 
 </div>
-
-</div>
-)}
 
 </div>
 
